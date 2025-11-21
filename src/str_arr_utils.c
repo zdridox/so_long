@@ -40,7 +40,7 @@ char **str_arr_resize(char **arr, int new_size) {
 
     new_arr = malloc(new_size * sizeof(char *));
     if(!new_arr)
-        return (str_arr_free(arr), NULL);
+        return (NULL);
     str_arr_copy(new_arr, arr);
     str_arr_free(arr);
     return (new_arr);
