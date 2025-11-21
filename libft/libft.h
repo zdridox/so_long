@@ -13,12 +13,25 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <unistd.h>
+# include <fcntl.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct sgnl_list
+{
+	int				fd;
+	char			*buffer;
+	int				bytes_read;
+	struct sgnl_list	*next;
+}					tgnl_list;
 
 void				*ft_memset(void *ptr, unsigned int c, size_t n);
 char				**ft_split(char const *s, char c);
@@ -74,3 +87,16 @@ char	*int_to_hex(unsigned long num, int type);
 int		char_index(char *str, char c);
 int		printpointer(void *p);
 int		puthex(unsigned long num, int type);
+
+char				*get_next_line(int fd);
+int					check_for_newline(char *buff, int size);
+void				line_resize(char **line, int size, int new_size);
+tgnl_list				*handle_fd(tgnl_list **list, int fd);
+tgnl_list				*add_fd_back(tgnl_list **list, int fd);
+void				free_buffer(tgnl_list **buffers, int fd);
+void				grab_data(char **line, tgnl_list *current_fd, int *bytes_total,
+						int fd);
+void				load_buffer(char **line, tgnl_list *current_fd,
+						int *bytes_total, int fd);
+void				handle_buffer(char **line, tgnl_list *current_fd,
+						int *bytes_total, tgnl_list **_buffers);
