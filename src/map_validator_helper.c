@@ -40,6 +40,7 @@ t_map *flood_fill(t_map *map) {
 
     map_to_flood = malloc(sizeof(t_map));
     map_to_flood->map = str_arr_resize(map->map, map->size_y + 1);
+    map_to_flood->map[map->size_y] = NULL;
     map_to_flood->size_x = map->size_x;
     map_to_flood->size_y = map->size_y;
     flood_fill_worker(map_to_flood, 1, 3); // map.ber player start pos
