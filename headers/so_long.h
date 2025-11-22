@@ -22,6 +22,7 @@ typedef struct s_data
     void *win;
     int texture_size;
     int collectibles;
+    int collectible_count;
     void *wall_texture;
     void *floor_texture;
     void *collectible_texture;
@@ -44,3 +45,5 @@ int render_loop(t_combo *combo);
 void close_game(t_data *data);
 void move_player(t_map *map, t_data *data, int x, int y);
 int input_hook(int keycode, t_combo *combo);
+void count_collectibles(t_combo *combo);
+int validate_map(t_map *map);

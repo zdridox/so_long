@@ -10,8 +10,16 @@ void move_player(t_map *map, t_data *data, int x, int y)
     if (map->map[player_pos->y + y][player_pos->x + x] != '1' && map->map[player_pos->y + y][player_pos->x + x] != 'E')
     {
         if (map->map[player_pos->y + y][player_pos->x + x] == 'C')
+        {
             data->collectibles++;
+            ft_printf("collected %d/%d\n", data->collectibles, data->collectible_count);
+        }
         map->map[player_pos->y + y][player_pos->x + x] = 'P';
         map->map[player_pos->y][player_pos->x] = '0';
+    }
+    if (map->map[player_pos->y + y][player_pos->x + x] == 'E' && data->collectible_count == data->collectibles)
+    {
+        ft_printf("game ended.");
+        close_game(data);
     }
 }

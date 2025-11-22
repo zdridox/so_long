@@ -112,6 +112,3 @@ int validate_map(t_map *map)
 //     free(player_cords);
 //     return 0;
 // }
-
-// TODO
-//  make each validator function call another one and on error just print it and exit() no need for main validator function then
