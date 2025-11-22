@@ -47,13 +47,27 @@ void count_collectibles(t_combo *combo)
     }
 }
 
-void close_game(t_data *data)
+int close_game(t_combo *combo)
 {
-    mlx_destroy_image(data->mlx, data->wall_texture);
-    mlx_destroy_image(data->mlx, data->floor_texture);
-    mlx_destroy_image(data->mlx, data->collectible_texture);
-    mlx_destroy_image(data->mlx, data->player_texture);
-    mlx_destroy_image(data->mlx, data->exit_texture);
-    mlx_destroy_window(data->mlx, data->win);
+    if(combo->data->win != NULL) {
+        mlx_destroy_image(combo->data->mlx, combo->data->wall_texture);
+        mlx_destroy_image(combo->data->mlx, combo->data->floor_texture);
+        mlx_destroy_image(combo->data->mlx, combo->data->collectible_texture);
+        mlx_destroy_image(combo->data->mlx, combo->data->player_texture);
+        mlx_destroy_image(combo->data->mlx, combo->data->exit_texture);
+        mlx_destroy_window(combo->data->mlx, combo->data->win);
+    }
+    mlx_destroy_display(combo->data->mlx);
+    str_arr_free(combo->map->map);
+    free(combo->map);
+    free(combo->data->mlx);
+    free(combo->data);
+    free(combo);
     exit(0);
+    return (0);
+}
+
+void throw_error(char *err, t_combo *combo) {
+   ft_printf("Error\n%s", err);
+   close_game(combo);
 }

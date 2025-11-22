@@ -1,21 +1,7 @@
 #include "../headers/so_long.h"
 #include "../headers/map_validator.h"
 
-int size_validator(t_map *map)
-{
-    int i;
-
-    i = 0;
-    while (map->map[i])
-    {
-        if (ft_strlen(map->map[i]) != map->size_x)
-            return (1);
-        i++;
-    }
-    return (0);
-}
-
-int player_exit_validator(t_map *map)
+void player_exit_validator(t_combo *combo)
 {
     int seen_player;
     int seen_exit;
@@ -25,72 +11,76 @@ int player_exit_validator(t_map *map)
     i = 0;
     seen_player = 0;
     seen_exit = 0;
-    while (map->map[i])
+    while (combo->map->map[i])
     {
         j = 0;
-        while (map->map[i][j])
+        while (combo->map->map[i][j])
         {
-            if (map->map[i][j] == 'P')
+            if (combo->map->map[i][j] == 'P')
                 seen_player++;
-            if (map->map[i][j] == 'E')
+            if (combo->map->map[i][j] == 'E')
                 seen_exit++;
             j++;
         }
         i++;
     }
-    return (!(seen_exit == 1 && seen_player == 1));
+    if(seen_exit != 1 || seen_player != 1)
+        return (throw_error("the number of players/exits is not valid", combo));
+    legal_chars_validator(combo);
 }
 
-int top_bottom_validator(t_map *map)
+void top_bottom_validator(t_combo *combo)
 {
     int i;
 
     i = 0;
-    while (map->map[0][i])
+    while (combo->map->map[0][i])
     {
-        if (map->map[0][i] != '1')
-            return (1);
+        if (combo->map->map[0][i] != '1')
+            return (throw_error("map top/bottom is not solid", combo));
         i++;
     }
     i = 0;
-    while (map->map[map->size_y - 1][i])
+    while (combo->map->map[combo->map->size_y - 1][i])
     {
-        if (map->map[map->size_y - 1][i] != '1')
-            return (1);
+        if (combo->map->map[combo->map->size_y - 1][i] != '1')
+            return (throw_error("map top/bottom is not solid", combo));
         i++;
     }
-    return (0);
+    player_exit_validator(combo);
 }
 
-int walls_validator(t_map *map)
+void walls_validator(t_combo *combo)
 {
     int i;
 
     i = 0;
-    while (map->map[i])
+    while (combo->map->map[i])
     {
-        if (map->map[i][0] != '1' || map->map[i][map->size_x - 1] != '1')
-            return (1);
+        if (combo->map->map[i][0] != '1' || combo->map->map[i][combo->map->size_x - 1] != '1')
+            return (throw_error("walls of the map are not solid.", combo));
         i++;
     }
-    return (0);
+    top_bottom_validator(combo);
 }
 
-int validate_map(t_map *map)
+void size_validator(t_combo *combo)
 {
-    int result;
+    int i;
 
-    result = 0;
-    if (!map || !map->map)
-        return (1);
-    result += size_validator(map);
-    result += player_exit_validator(map);
-    result += top_bottom_validator(map);
-    result += walls_validator(map);
-    result += legal_chars_validator(map);
-    result += flood_fill_validator(map);
-    result += check_for_collectible(map);
-    return (result);
+    i = 0;
+    while (combo->map->map[i])
+    {
+        if ((int)ft_strlen(combo->map->map[i]) != combo->map->size_x)
+            return (throw_error("size of the map is invalid.", combo));
+        i++;
+    }
+    walls_validator(combo);
+}
+
+void validate_map(t_combo *combo)
+{
+    size_validator(combo);
 }
 
 // int main(int argc, char **argv)
