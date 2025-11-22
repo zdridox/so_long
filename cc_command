@@ -1,1 +1,0 @@
-cc src/main.c src/render_utils.c src/map_parser.c src/str_arr_utils.c src/input_control.c src/game_control.c src/utils.c src/map_validator.c src/map_validator_helper.c libft/libft.a minilibx-linux/libmlx.a -Wall -Werror -Wextra -g -lXext -lX11 -lm -lbsd -o so_long

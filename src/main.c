@@ -35,5 +35,4 @@ int main(int argc, char **argv)
 }
 
 // TODO
-//  Makefile
 //  NORMINETTE ( NA LIBFT KURWA TEZ )
