@@ -5,7 +5,6 @@
 typedef struct s_map
 {
     char **map;
-    int collectible_count;
     int size_x;
     int size_y;
 } t_map;
