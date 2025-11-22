@@ -40,3 +40,4 @@ int main(int argc, char **argv)
 //  shitload of leaks and suppressed errors
 //  make close widnow button close game
 //  Makefile
+//  NORMINETTE ( NA LIBFT KURWA TEZ )
