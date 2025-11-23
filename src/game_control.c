@@ -20,7 +20,7 @@ void move_player(t_combo *combo, int x, int y)
     }
     if (combo->map->map[player_pos->y + y][player_pos->x + x] == 'E' && combo->data->collectible_count == combo->data->collectibles)
     {
-        ft_printf("gg");
+        ft_printf("\ngg");
         free(player_pos);
         close_game(combo);
     }
