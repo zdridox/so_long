@@ -12,11 +12,11 @@ void move_player(t_combo *combo, int x, int y)
         if (combo->map->map[player_pos->y + y][player_pos->x + x] == 'C')
         {
             combo->data->collectibles++;
-            ft_printf("collected %d/%d\n", combo->data->collectibles, combo->data->collectible_count);
+            ft_printf("\rcollected %d/%d\n", combo->data->collectibles, combo->data->collectible_count);
         }
         combo->map->map[player_pos->y + y][player_pos->x + x] = 'P';
         combo->map->map[player_pos->y][player_pos->x] = '0';
-        ft_printf("moves: %d\n", ++combo->data->moves_count);
+        ft_printf("\rmoves: %d", ++combo->data->moves_count);
     }
     if (combo->map->map[player_pos->y + y][player_pos->x + x] == 'E' && combo->data->collectible_count == combo->data->collectibles)
     {
