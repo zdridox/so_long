@@ -40,7 +40,6 @@ t_map *parse_map(char *file_name);
 t_cords *get_player_cords(t_map *map);
 void *load_texture(t_data *data, char *path);
 void render_map(t_map *map, t_data *data);
-int render_loop(t_combo *combo);
 int close_game(t_combo *combo);
 void move_player(t_combo *combo, int x, int y);
 int input_hook(int keycode, t_combo *combo);

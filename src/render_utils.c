@@ -37,9 +37,3 @@ void render_map(t_map *map, t_data *data)
         i++;
     }
 }
-
-int render_loop(t_combo *combo)
-{
-    render_map(combo->map, combo->data);
-    return (0);
-}
