@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzdrodow <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mzdrodow <mzdrodow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 15:19:53 by mzdrodow          #+#    #+#             */
-/*   Updated: 2025/11/20 19:13:20 by mzdrodow         ###   ########.fr       */
+/*   Updated: 2025/11/28 14:11:08 by mzdrodow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*get_next_line(int fd)
 {
-	static tgnl_list	*_buffers;
-	tgnl_list			*current_fd;
-	char			*line;
-	int				bytes_total;
+	static t_gnl_list	*_buffers;
+	t_gnl_list			*current_fd;
+	char				*line;
+	int					bytes_total;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -37,8 +37,8 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-void	handle_buffer(char **line, tgnl_list *current_fd, int *bytes_total,
-		tgnl_list **_buffers)
+void	handle_buffer(char **line, t_gnl_list *current_fd, int *bytes_total,
+		t_gnl_list **_buffers)
 {
 	int	remaining;
 
@@ -62,7 +62,7 @@ void	handle_buffer(char **line, tgnl_list *current_fd, int *bytes_total,
 		free_buffer(_buffers, current_fd->fd);
 }
 
-void	grab_data(char **line, tgnl_list *current_fd, int *bytes_total, int fd)
+void	grab_data(char **line, t_gnl_list *current_fd, int *bytes_total, int fd)
 {
 	while (check_for_newline(*line, *bytes_total) < 0)
 	{
@@ -82,7 +82,8 @@ void	grab_data(char **line, tgnl_list *current_fd, int *bytes_total, int fd)
 		(*line)[0] = '\0';
 }
 
-void	load_buffer(char **line, tgnl_list *current_fd, int *bytes_total, int fd)
+void	load_buffer(char **line, t_gnl_list *current_fd, int *bytes_total,
+		int fd)
 {
 	if (current_fd->buffer[0] == '\0')
 	{
@@ -103,9 +104,9 @@ void	load_buffer(char **line, tgnl_list *current_fd, int *bytes_total, int fd)
 	}
 }
 
-tgnl_list	*handle_fd(tgnl_list **list, int fd)
+t_gnl_list	*handle_fd(t_gnl_list **list, int fd)
 {
-	tgnl_list	*p;
+	t_gnl_list	*p;
 
 	p = *list;
 	while (p != NULL)

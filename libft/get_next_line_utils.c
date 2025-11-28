@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzdrodow <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mzdrodow <mzdrodow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 15:20:06 by mzdrodow          #+#    #+#             */
-/*   Updated: 2025/11/16 15:20:08 by mzdrodow         ###   ########.fr       */
+/*   Updated: 2025/11/28 14:08:45 by mzdrodow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-void	free_buffer(tgnl_list **buffers, int fd)
+void	free_buffer(t_gnl_list **buffers, int fd)
 {
-	tgnl_list	*p;
-	tgnl_list	*p2;
+	t_gnl_list	*p;
+	t_gnl_list	*p2;
 
 	p = *buffers;
 	if (p->next == NULL)
@@ -90,13 +90,13 @@ void	free_buffer(tgnl_list **buffers, int fd)
 	}
 }
 
-tgnl_list	*add_fd_back(tgnl_list **list, int fd)
+t_gnl_list	*add_fd_back(t_gnl_list **list, int fd)
 {
-	tgnl_list	*node;
-	tgnl_list	*p;
+	t_gnl_list	*node;
+	t_gnl_list	*p;
 
 	p = *list;
-	node = malloc(sizeof(tgnl_list));
+	node = malloc(sizeof(t_gnl_list));
 	if (!node)
 		return (NULL);
 	node->buffer = malloc(BUFFER_SIZE);
