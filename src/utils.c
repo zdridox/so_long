@@ -6,7 +6,7 @@
 /*   By: mzdrodow <mzdrodow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 14:00:28 by mzdrodow          #+#    #+#             */
-/*   Updated: 2025/11/28 14:00:29 by mzdrodow         ###   ########.fr       */
+/*   Updated: 2025/11/29 01:00:08 by mzdrodow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,49 +39,52 @@ t_cords	*get_player_cords(t_map *map)
 	return (player_pos);
 }
 
-void	count_collectibles(t_combo *combo)
+void	count_collectibles(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	combo->data->collectible_count = 0;
-	while (combo->map->map[i])
+	data->collectible_count = 0;
+	while (data->map->map[i])
 	{
 		j = 0;
-		while (combo->map->map[i][j])
+		while (data->map->map[i][j])
 		{
-			if (combo->map->map[i][j] == 'C')
-				combo->data->collectible_count++;
+			if (data->map->map[i][j] == 'C')
+				data->collectible_count++;
 			j++;
 		}
 		i++;
 	}
 }
 
-int	close_game(t_combo *combo)
+int	close_game(t_data *data)
 {
-	if (combo->data->win != NULL)
+	if (data->wall_texture != NULL)
 	{
-		mlx_destroy_image(combo->data->mlx, combo->data->wall_texture);
-		mlx_destroy_image(combo->data->mlx, combo->data->floor_texture);
-		mlx_destroy_image(combo->data->mlx, combo->data->collectible_texture);
-		mlx_destroy_image(combo->data->mlx, combo->data->player_texture);
-		mlx_destroy_image(combo->data->mlx, combo->data->exit_texture);
-		mlx_destroy_window(combo->data->mlx, combo->data->win);
+		mlx_destroy_image(data->mlx, data->wall_texture);
+		mlx_destroy_image(data->mlx, data->floor_texture);
+		mlx_destroy_image(data->mlx, data->collectible_texture);
+		mlx_destroy_image(data->mlx, data->player_texture);
+		mlx_destroy_image(data->mlx, data->exit_texture);
 	}
-	mlx_destroy_display(combo->data->mlx);
-	str_arr_free(combo->map->map);
-	free(combo->map);
-	free(combo->data->mlx);
-	free(combo->data);
-	free(combo);
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	if (data->map)
+	{
+		str_arr_free(data->map->map);
+		free(data->map);
+	}
+	free(data->mlx);
+	free(data);
 	exit(0);
 	return (0);
 }
 
-void	throw_error(char *err, t_combo *combo)
+void	throw_error(char *err, t_data *data)
 {
 	ft_printf("Error\n%s", err);
-	close_game(combo);
+	close_game(data);
 }

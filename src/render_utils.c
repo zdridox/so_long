@@ -6,7 +6,7 @@
 /*   By: mzdrodow <mzdrodow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 14:00:47 by mzdrodow          #+#    #+#             */
-/*   Updated: 2025/11/28 14:00:48 by mzdrodow         ###   ########.fr       */
+/*   Updated: 2025/11/29 01:18:13 by mzdrodow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ void	*load_texture(t_data *data, char *path)
 	return (image);
 }
 
-void	render_map(t_map *map, t_data *data)
+void	render_map(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (map->map[i])
+	while (data->map->map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (data->map->map[i][j])
 		{
-			put_chunk(data, i, j, map->map[i][j]);
+			put_chunk(data, i, j, data->map->map[i][j]);
 			j++;
 		}
 		i++;

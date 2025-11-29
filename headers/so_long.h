@@ -6,7 +6,7 @@
 /*   By: mzdrodow <mzdrodow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 13:59:44 by mzdrodow          #+#    #+#             */
-/*   Updated: 2025/11/28 13:59:44 by mzdrodow         ###   ########.fr       */
+/*   Updated: 2025/11/29 01:17:27 by mzdrodow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_cords
 
 typedef struct s_data
 {
+	t_map	*map;
 	void	*mlx;
 	void	*win;
 	int		texture_size;
@@ -45,22 +46,16 @@ typedef struct s_data
 	void	*exit_texture;
 }			t_data;
 
-typedef struct s_combo
-{
-	t_data	*data;
-	t_map	*map;
-}			t_combo;
-
 t_map		*parse_map(char *file_name);
 t_cords		*get_player_cords(t_map *map);
 void		*load_texture(t_data *data, char *path);
-void		render_map(t_map *map, t_data *data);
-int			close_game(t_combo *combo);
-void		move_player(t_combo *combo, int x, int y);
-int			input_hook(int keycode, t_combo *combo);
-void		count_collectibles(t_combo *combo);
-void		validate_map(t_combo *combo);
-void		throw_error(char *err, t_combo *combo);
+void		render_map(t_data *data);
+int			close_game(t_data *data);
+void		move_player(t_data *data, int x, int y);
+int			input_hook(int keycode, t_data *data);
+void		count_collectibles(t_data *data);
+void		validate_map(t_data *data);
+void		throw_error(char *err, t_data *data);
 void		put_chunk(t_data *data, int i, int j, char type);
-void		player_exit(t_combo *combo, t_cords *player_pos);
+void		player_exit(t_data *data, t_cords *player_pos);
 #endif
